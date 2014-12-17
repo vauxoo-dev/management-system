@@ -29,7 +29,5 @@
     "depends": ['mgmtsystem_manuals'],
     "data": ['document_page_environment_manual.xml'],
     "demo": [],
-    "installable": True,
-    "certificate": ''
+    'installable': True,
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
