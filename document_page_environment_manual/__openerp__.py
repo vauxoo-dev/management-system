@@ -27,7 +27,7 @@
     "description": """Environment Manual Template
     """,
     "depends": ['mgmtsystem_manuals'],
-    "data": ['document_page_environment_manual.xml'],
+    "data": ['data/document_page.xml'],
     "demo": [],
     'installable': True,
 }
