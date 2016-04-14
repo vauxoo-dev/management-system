@@ -39,6 +39,7 @@ class mgmtsystem_action(models.Model):
                                    ('immediate', 'Immediate Action'),
                                    ('correction', 'Corrective Action'),
                                    ('prevention', 'Preventive Action'),
+                                   ('training', 'Training Action'),
                                    ('improvement', 'Improvement Opportunity')
                                    ], 'Response Type')
 
