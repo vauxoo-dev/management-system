@@ -203,6 +203,7 @@ class MgmtsystemNonconformity(models.Model):
         'Preventive action',
         domain="[('nonconformity_id', '=', id)]",
     )
+    product_id = fields.Many2one('product.product', 'Product')
 
     @property
     @api.multi
