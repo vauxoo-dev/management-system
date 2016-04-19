@@ -36,9 +36,14 @@ class TestModelAction(common.TransactionCase):
             "type_action": "immediate",
         })
 
+        url = self.env['ir.config_parameter'].get_param('web.base.url')
         ret = record.get_action_url()
 
-        self.assertEqual(isinstance(ret, list), True)
-        self.assertEqual(len(ret), 1)
-        self.assertEqual(isinstance(ret[0], basestring), True)
-        self.assertEqual(ret[0].startswith('http'), True)
+        self.assertIn(url, ret, 'Action link: link should contain web.base.url\
+         config parameter.')
+        self.assertIn(str(record.id), ret, 'Action link: link should contain\
+         record id.')
+        self.assertIn(record._model._name, ret, 'Action link: link should\
+         contain model name.')
+        self.assertEqual(isinstance(ret, basestring), True)
+        self.assertEqual(ret.startswith('http'), True)
