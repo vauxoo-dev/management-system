@@ -19,8 +19,6 @@
 #
 ##############################################################################
 
-from urllib import urlencode
-from urlparse import urljoin
 from openerp import fields, models, api
 
 
@@ -92,15 +90,11 @@ class mgmtsystem_action(models.Model):
 
         return True
 
-    @api.one
+    @api.multi
     def get_action_url(self):
-        config_parameter = self.env['ir.config_parameter']
-        base_url = config_parameter.get_param('web.base_url',
-                                              default='http://localhost:8069')
-
-        query = {'db': self.env.cr.dbname}
-        fragment = {'id': self.id, 'model': self._name}
-
-        return urljoin(base_url, "?%s#%s" % (
-            urlencode(query), urlencode(fragment)
-        ))
+        partner_obj = self.env['res.partner']
+        partner_brw = partner_obj.browse(self.user_id.partner_id.id)
+        if partner_brw:
+            url = partner_brw._get_signup_url_for_action(
+                res_id=self.id, model=self._model)[partner_brw.id]
+        return url
