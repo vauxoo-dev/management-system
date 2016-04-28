@@ -51,7 +51,7 @@ class mgmtsystem_action(orm.Model):
             type='char',
             size=250,
         ),
-        'name': fields.char('Claim Subject', size=128),
+        'name': fields.char('Claim Subject', size=128, required=True),
     }
     _defaults = {
         'action_type': 'action'
