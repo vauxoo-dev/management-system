@@ -17,14 +17,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from odoo.tests import common
 from psycopg2 import IntegrityError
+from odoo.tools import mute_logger
+from odoo.tests import common
 
 
 class TestModelOrigin(common.TransactionCase):
     def test_create_origin(self):
 
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(IntegrityError), mute_logger('odoo.sql_db'):
             self.env['mgmtsystem.nonconformity.origin'].create({})
         self.cr.rollback()
 

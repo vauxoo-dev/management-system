@@ -22,6 +22,7 @@ from contextlib import contextmanager
 from psycopg2 import IntegrityError
 from odoo.tests import common
 from odoo import exceptions
+from odoo.tools import mute_logger
 
 
 class TestModelCause(common.TransactionCase):
@@ -35,7 +36,8 @@ class TestModelCause(common.TransactionCase):
         self.cr.rollback()
 
     def test_create_cause(self):
-        with self.assertRaisesRollback(IntegrityError):
+        with self.assertRaisesRollback(IntegrityError), mute_logger(
+                'odoo.sql_db'):
             # Will generate an error in the logs but we handle it
             self.env['mgmtsystem.nonconformity.cause'].create({})
             # Should not be possible to create without name
