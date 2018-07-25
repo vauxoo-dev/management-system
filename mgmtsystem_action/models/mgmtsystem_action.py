@@ -183,7 +183,7 @@ class MgmtsystemAction(models.Model):
 
     def get_action_url(self):
         """Return action url to be used in email templates."""
-        base_url = self.env['ir.config_parameter'].get_param(
+        base_url = self.env['ir.config_parameter'].sudo().get_param(
             'web.base.url',
             default='http://localhost:8069'
         )
