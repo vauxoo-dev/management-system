@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -41,8 +40,6 @@ This module enables you to manage the claims of your management system.
         'views/menus.xml',
         'views/mgmtsystem_claim.xml',
         'views/mgmtsystem_claim_stage.xml',
-        'workflow_mgmtsystem_claim.xml',
-        'views/board_mgmtsystem_claim.xml',
     ],
-    'installable': False,
+    'installable': True,
 }

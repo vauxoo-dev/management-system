@@ -1,13 +1,11 @@
-<openerp>
-  <data>
-
+<odoo>
     <!-- Claims -->
 
     <record model="ir.ui.view" id="mgmtsystem_claims_tree_view">
       <field name="name">Management System Claims Tree</field>
       <field name="model">mgmtsystem.claim</field>
       <field name="arch" type="xml">
-        <tree string="Claims" 
+        <tree string="Claims"
               colors="blue:stage_id==%(mgmtsystem_claim.stage_pending)d and not(date_deadline and (date_deadline &lt; current_date));gray:stage_id in (%(mgmtsystem_claim.stage_close)d, %(mgmtsystem_claim.stage_cancel)d);red:date_deadline and (date_deadline &lt; current_date)">
           <field name="reference"/>
           <field name="name"/>
@@ -43,7 +41,7 @@
             <group colspan="4" col="4"  groups="base.group_user">
               <field name="user_id"/>
               <field name="priority"/>
-              <field name="section_id"/>
+              <field name="team_id"/>
               <field name="date_deadline"/>
             </group>
             <group colspan="4" col="4">
@@ -61,7 +59,7 @@
                     <field name="user_fault"/>
                     <field name="categ_id" widget="selection"
                       domain="[('object_id.model', '=', 'crm.claim')]"/>
-                    <field name="ref"/>
+                    <field name="model_ref_id"/>
                   </group>
                   <separator colspan="4" string="Claim/Action Description" groups="base.group_user"/>
                   <field name="description" colspan="4" nolabel="1"/>
@@ -120,7 +118,7 @@
       <field name="model">mgmtsystem.claim</field>
       <field name="arch" type="xml">
         <search string="Search Claims">
-          
+
           <filter icon="terp-check" string="Current" name="current"
             domain="[('state','in',(%(mgmtsystem_claim.stage_draft)d, %(mgmtsystem_claim.stage_open)d))]"
             separator="1" help="Draft and Open Claims" />
@@ -173,22 +171,64 @@
       </field>
     </record>
 
+    <record id="view_mgmtsystem_claim_kanban" model="ir.ui.view">
+        <field name="name">mgmtsystem.claum.kanban</field>
+        <field name="model">mgmtsystem.claim</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="stage_id" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="reference"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="#{kanban_color(red)} oe_kanban_global_click">
+                            <div class="o_dropdown_kanban dropdown">
+
+                                <a class="dropdown-toggle btn" data-toggle="dropdown" href="#">
+                                    <span class="fa fa-bars fa-lg"/>
+                                </a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                    <t t-if="widget.editable">
+                                        <li>
+                                            <a type="edit">Edit</a>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
+                            <div class="oe_kanban_content">
+                                <div>
+                                    <strong><field name="reference"/> - <field name="name"/></strong>
+                                </div>
+                                <div>
+                                    <br/>
+                                </div>
+                                <div class="o_kanban_footer">
+                                    <span class='oe_kanban_mail_new' title='Unread Messages'><i class='fa fa-comments'/><t t-raw="record.message_needaction_counter.raw_value"/></span>
+                                    <img t-att-src="kanban_image('res.users', 'image_small', record.responsible_user_id.raw_value)" t-att-title="record.responsible_user_id.value" width="24" height="24" class="oe_kanban_avatar"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record model="ir.actions.act_window" id="mgmtsystem_claim_action">
       <field name="name">Claims</field>
       <field name="res_model">mgmtsystem.claim</field>
       <field name="view_type">form</field>
-      <field name="view_mode">tree,calendar,form</field>
+      <field name="view_mode">kanban,tree,calendar,form</field>
       <field name="context">{"search_default_user_id":uid, "stage_type":'claim'}</field>
       <field name="help">Record and track your customers' claims. Claims may be linked to a sales order or a lot. You can send emails with attachments and keep the full history for a claim (emails sent, intervention type and so on). Claims may automatically be linked to an email address using the mail gateway module.</field>
     </record>
 
-    <menuitem 
+    <menuitem
       id="menu_mgmtsystem_claims"
-      name="Claims" 
-      parent="mgmtsystem.menu_mgmtsystem_main" 
-      action="mgmtsystem_claim_action" 
+      name="Claims"
+      parent="mgmtsystem.menu_mgmtsystem_main"
+      action="mgmtsystem_claim_action"
       sequence="90"
       groups="mgmtsystem.group_mgmtsystem_manager,mgmtsystem.group_mgmtsystem_auditor,base.group_user"/>
 
-  </data>
-</openerp>
+</odoo>

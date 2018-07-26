@@ -1,5 +1,4 @@
-<openerp>
-  <data>
+<odoo>
 
     <record id="stage_draft" model="mgmtsystem.claim.stage">
       <field name="name">draft</field>
@@ -26,5 +25,4 @@
       <field name="sequence">750</field>
     </record>
 
-  </data>
-</openerp>
+</odoo>

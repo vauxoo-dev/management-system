@@ -1,5 +1,4 @@
-<openerp>
-  <data>
+<odoo>
 
     <record model="ir.ui.view" id="mgmtsystem_claim_stage_tree_view">
       <field name="name">Management System Claim Stage Tree</field>
@@ -20,13 +19,12 @@
       <field name="context">{}</field>
     </record>
 
-    <menuitem 
+    <menuitem
       id="menu_mgmtsystem_claim_stages"
-      name="Stages" 
+      name="Stages"
       parent="menu_config_claim"
-      action="mgmtsystem_claim_stage_action" 
+      action="mgmtsystem_claim_stage_action"
       sequence="90"
       groups="mgmtsystem.group_mgmtsystem_manager,mgmtsystem.group_mgmtsystem_auditor,base.group_user"/>
 
-  </data>
-</openerp>
+</odoo>

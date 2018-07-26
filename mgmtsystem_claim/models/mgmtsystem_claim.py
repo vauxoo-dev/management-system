@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -18,7 +17,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import fields, models, api
+from odoo import fields, models, api
 
 
 class mgmtsystem_claim(models.Model):
@@ -59,6 +58,7 @@ class mgmtsystem_claim(models.Model):
     @api.model
     def create(self, vals):
         vals.update({
-            'reference': self.env['ir.sequence'].get('mgmtsystem.claim')
+            'reference': self.env['ir.sequence'].next_by_code(
+                'mgmtsystem.claim')
         })
         return super(mgmtsystem_claim, self).create(vals)
