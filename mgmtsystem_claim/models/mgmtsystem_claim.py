@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -18,32 +17,18 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import fields, models, api
+from odoo import fields, models, api
 
 
-class mgmtsystem_claim(models.Model):
+class MgmtsystemClaim(models.Model):
     _name = "mgmtsystem.claim"
     _description = "Claim"
     _inherit = "crm.claim"
 
     reference = fields.Char(
-        'Reference',
         required=True,
         readonly=True,
         default='NEW'
-    )
-
-    message_ids = fields.One2many(
-        'mail.message',
-        'res_id',
-        'Messages',
-        domain=[('model', '=', _name)]
-    )
-
-    company_id = fields.Many2one(
-        'res.company',
-        'Company',
-        default=lambda self: self.env.user.company_id.id
     )
 
     stage_id = fields.Many2one(
@@ -59,6 +44,7 @@ class mgmtsystem_claim(models.Model):
     @api.model
     def create(self, vals):
         vals.update({
-            'reference': self.env['ir.sequence'].get('mgmtsystem.claim')
+            'reference': self.env['ir.sequence'].next_by_code(
+                'mgmtsystem.claim')
         })
-        return super(mgmtsystem_claim, self).create(vals)
+        return super().create(vals)
