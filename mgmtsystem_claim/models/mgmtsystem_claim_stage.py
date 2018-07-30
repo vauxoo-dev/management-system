@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from odoo import fields, models
+from odoo import models
 
 
 class MgmtsystemClaimStage(models.Model):
@@ -26,13 +26,3 @@ class MgmtsystemClaimStage(models.Model):
     _name = 'mgmtsystem.claim.stage'
     _inherit = 'crm.claim.stage'
     _order = 'sequence'
-
-    name = fields.Char('Stage Name', required=True, translate=True)
-    sequence = fields.Integer(
-        'Sequence', help="Used to order stages. Lower is better.", default=100)
-    case_default = fields.Boolean(
-        'Common to All Teams', help="If you check this field, \
-        this stage will be proposed by default on each sales team. \
-        It will not assign this stage to existing teams.")
-    is_starting = fields.Boolean('Starting stage')
-    is_ending = fields.Boolean('Ending stage')
