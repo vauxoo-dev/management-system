@@ -17,25 +17,24 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    "name": "Management System - Project",
-    "version": "11.0.1.0.0",
-    "author": "Savoir-faire Linux,Odoo Community Association (OCA)",
-    "website": "http://www.savoirfairelinux.com",
-    "license": "AGPL-3",
-    "category": "Management System",
-    "description": """\
-This module enables you to set a project as an action in the nonconformity.
-    """,
-    "depends": [
-        'mgmtsystem_nonconformity',
-        'mgmtsystem_action',
-        'project'
-    ],
-    "data": [
-        'views/mgmtsystem_nonconformity_project.xml',
-    ],
-    "demo": [],
-    'installable': True,
-}
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+from odoo import fields, models
+
+
+class MgmtsystemAction(models.Model):
+    _inherit = "mgmtsystem.action"
+
+    def _complete_name(self):
+        for o in self:
+            o.complete_name = o.name
+            if o.action_type == 'project' and o.project_id:
+                o.complete_name = o.project_id.name
+
+    action_type = fields.Selection(
+        [
+            ('action', 'Action'),
+            ('project', 'Project'),
+        ], required=True, default='action')
+    project_id = fields.Many2one('project.project', 'Project')
+    complete_name = fields.Char(compute=_complete_name)
+    name = fields.Char('Claim Subject')
