@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
+<odoo>
 
         <template id="nonconformity_report_translatable">
             <t t-call="mgmtsystem_nonconformity_report.external_layout">
-                <!-- CALLING HEADER and FOOTER -->
-                <t t-call="mgmtsystem_nonconformity_report.external_layout_header"/>
-                <t t-call="mgmtsystem_nonconformity_report.external_layout_footer"/>
                 <div class="page">
                     <table class="table">
                         <tr class="row">
@@ -66,7 +62,7 @@
                                 <tr class="row">
                                     <td><span t-raw="action.description or ''"/></td>
                                     <td><span t-raw="action.user_id.name or ''"/></td>
-                                    <td><span t-field="action.date" t-field-options='{"widget": "date"}'/></td>
+                                    <td><span t-field="action.create_date" t-field-options='{"widget": "date"}'/></td>
                                 </tr>
                             </t>
                         </t>
@@ -107,7 +103,7 @@
                                     <td><span t-raw="action.reference or ''"/></td>
                                     <td><span t-raw="action.description or ''"/></td>
                                     <td><span t-raw="action.user_id.name or ''"/></td>
-                                    <td><span t-field="action.date" t-field-options='{"widget": "date"}'/></td>
+                                    <td><span t-field="action.create_date" t-field-options='{"widget": "date"}'/></td>
                                     <td><span t-field="action.date_deadline" t-field-options='{"widget": "date"}'/></td>
                                 </tr>
                             </t>
@@ -136,7 +132,7 @@
                                     <td><span t-raw="action.reference or ''"/></td>
                                     <td><span t-raw="action.description or ''"/></td>
                                     <td><span t-raw="action.user_id.name or ''"/></td>
-                                    <td><span t-field="action.date" t-field-options='{"widget": "date"}'/></td>
+                                    <td><span t-field="action.create_date" t-field-options='{"widget": "date"}'/></td>
                                     <td><span t-field="action.date_deadline" t-field-options='{"widget": "date"}'/></td>
                                 </tr>
                             </t>
@@ -215,10 +211,9 @@
 
         <!-- Templates -->
         <template id="nonconformity_report">
-            <t t-call="mgmtsystem_nonconformity_report.html_container">
-                <t t-foreach="doc_ids" t-as="doc_id">
-                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang',
-                                            'mgmtsystem_nonconformity_report.nonconformity_report_translatable')"/>
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="mgmtsystem_nonconformity_report.nonconformity_report_translatable" t-lang="o.partner_id.lang"/>
                 </t>
             </t>
         </template>
@@ -230,11 +225,7 @@
             name="mgmtsystem_nonconformity_report.nonconformity_report"
             string="Nonconformity"
             report_type="qweb-pdf"
-            multi="False"/>
+            paperformat="mgmtsystem_nonconformity_report.paperformat_nonconformity"
+            />
 
-        <record id="mgmtsystem_nonconformity_report.report_nonconformity_8ds" model="ir.actions.report.xml">
-            <field name="paperformat_id" ref="mgmtsystem_nonconformity_report.paperformat_nonconformity"/>
-        </record>
-
-    </data>
-</openerp>
+</odoo>

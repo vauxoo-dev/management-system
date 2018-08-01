@@ -1,4 +1,3 @@
-# coding: utf-8
 ############################################################################
 #    Module Writen For Odoo, Open Source Management Solution
 #
@@ -10,13 +9,13 @@
 ############################################################################
 {
     "name": "Management Nonconformity Report",
-    "version": "8.0.0.0.1",
+    "version": "11.0.1.0.0",
     "author": "Vauxoo",
     "website": "https://www.vauxoo.com",
     "license": "AGPL-3",
     "category": "Management System",
     "depends": [
-        "report",
+        "web",
         "mgmtsystem_nonconformity"
     ],
     "data": [
