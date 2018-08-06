@@ -24,9 +24,6 @@
     "website": "http://www.savoirfairelinux.com",
     "license": "AGPL-3",
     "category": "Management System",
-    "description": """\
-This module enables you to set a project as an action in the nonconformity.
-    """,
     "depends": [
         'mgmtsystem_nonconformity',
         'mgmtsystem_action',
@@ -38,4 +35,3 @@ This module enables you to set a project as an action in the nonconformity.
     "demo": [],
     'installable': True,
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

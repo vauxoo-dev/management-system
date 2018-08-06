@@ -3,6 +3,7 @@
         <record id="view_mgmtsystem_action_tree" model="ir.ui.view">
             <field name="name">mgmtsystem.action.tree</field>
             <field name="model">mgmtsystem.action</field>
+            <field name="priority" eval="99"/>
             <field name="inherit_id" ref="mgmtsystem_action.view_mgmtsystem_action_tree"/>
             <field name="arch" type="xml">
 
@@ -17,6 +18,7 @@
         <record id="view_mgmtsystem_action_form" model="ir.ui.view">
             <field name="name">mgmtsystem.action.form</field>
             <field name="model">mgmtsystem.action</field>
+            <field name="priority" eval="99"/>
             <field name="inherit_id" ref="mgmtsystem_action.view_mgmtsystem_action_form"/>
             <field name="arch" type="xml">
 
