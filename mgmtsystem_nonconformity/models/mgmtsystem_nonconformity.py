@@ -203,6 +203,13 @@ class MgmtsystemNonconformity(models.Model):
                 nc.create_date,
                 nc.write_date)
 
+    @api.depends('closing_date')
+    def _compute_number_of_days_to_close(self):
+        for nc in self:
+            nc.number_of_days_to_close = self._elapsed_days(
+                nc.create_date,
+                nc.closing_date)
+
     @api.model
     def create(self, vals):
         vals.update({
